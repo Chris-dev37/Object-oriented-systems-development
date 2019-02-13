@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newtabletennismatchsystem;
+package newtabletennismatchsystem_;
 
 /**
  *
  * @author c23-day
  */
-public class Match {
+public class Venue {
     
 }
