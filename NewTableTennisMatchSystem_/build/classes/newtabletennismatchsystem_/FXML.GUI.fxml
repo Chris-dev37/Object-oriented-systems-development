@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="newtabletennismatchsystem_.controller">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -43,7 +42,7 @@
                                                 <Insets top="10.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="addTeamButton" mnemonicParsing="false" text="Add Team">
+                                          <Button fx:id="addTeamButton" mnemonicParsing="false" text="Add Team" onAction="#teamButton">
                                              <HBox.margin>
                                                 <Insets right="10.0" top="10.0" />
                                              </HBox.margin>
@@ -61,12 +60,7 @@
                                              </HBox.margin>
                                           </Label>
                                           <Region HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="playerFirstNameText" prefHeight="25.0" prefWidth="120.0" promptText="First Name">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <TextField fx:id="playerLastNameText" layoutX="311.0" layoutY="20.0" prefWidth="120.0" promptText="Last Name">
+                                          <TextField fx:id="playerNameText" prefHeight="25.0" prefWidth="120.0" promptText="Player Name">
                                              <HBox.margin>
                                                 <Insets top="10.0" />
                                              </HBox.margin>
@@ -81,7 +75,7 @@
                                     <HBox layoutX="10.0" layoutY="114.0" prefHeight="44.0" prefWidth="600.0">
                                        <children>
                                           <Region prefHeight="39.0" prefWidth="516.0" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="addPlayerButton" mnemonicParsing="false" prefWidth="74.0" text="Add Player">
+                                          <Button fx:id="addPlayerButton" mnemonicParsing="false" prefWidth="74.0" text="Add Player" onAction="#playerToTeamButton">
                                              <HBox.margin>
                                                 <Insets right="10.0" />
                                              </HBox.margin>

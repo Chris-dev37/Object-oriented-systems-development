@@ -12,7 +12,6 @@ package newtabletennismatchsystem_;
 public class Team {
     
     String teamName;
-    String [] allTeams;
     
     public Team(String name){
         this.teamName = name;

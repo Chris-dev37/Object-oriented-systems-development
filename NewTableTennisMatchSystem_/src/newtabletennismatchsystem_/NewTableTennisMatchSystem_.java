@@ -28,7 +28,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("FXML.GUI.fxml"));
         window.setTitle("Table Tennis Match and Score System");
-        window.setScene(new Scene(root, 700, 400));
+        window.setScene(new Scene(root, 600, 400));
         window.show();
         
        
