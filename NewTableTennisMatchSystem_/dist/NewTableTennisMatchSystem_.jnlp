@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="NewTableTennisMatchSystem_.jnlp">
+  <information>
+    <title>NewTableTennisMatchSystem_</title>
+    <vendor>c23-day</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="NewTableTennisMatchSystem_.jar" size="5728" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="NewTableTennisMatchSystem_" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="newtabletennismatchsystem_.NewTableTennisMatchSystem_"  name="NewTableTennisMatchSystem_" />
+  <update check="always"/>
+</jnlp>

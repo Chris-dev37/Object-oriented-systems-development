@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller ="newtabletennismatchsystem_.controller">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Admin Page">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="375.0" prefWidth="600.0">
+                                 <children>
+                                    <HBox prefHeight="73.0" prefWidth="600.0">
+                                       <children>
+                                          <Label text="Enter Team Name:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="addTeamNameText" promptText="Team Name">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="addTeamButton" mnemonicParsing="false" text="Add Team" onAction="#teamButton">
+                                             <HBox.margin>
+                                                <Insets right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="41.0" prefHeight="37.0" prefWidth="600.0">
+                                       <children>
+                                          <Label text="Enter Player Name:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="playerFirstNameText" prefHeight="25.0" prefWidth="120.0" promptText="First Name">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="playerLastNameText" layoutX="311.0" layoutY="20.0" prefWidth="120.0" promptText="Last Name">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="selectTeamBox" prefHeight="25.0" prefWidth="106.0" promptText="Select Team">
+                                             <HBox.margin>
+                                                <Insets right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="114.0" prefHeight="44.0" prefWidth="600.0">
+                                       <children>
+                                          <Region prefHeight="39.0" prefWidth="516.0" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="addPlayerButton" mnemonicParsing="false" prefWidth="74.0" text="Add Player">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="153.0" prefHeight="28.0" prefWidth="600.0">
+                                       <children>
+                                          <Label prefHeight="27.0" prefWidth="482.0" text="Genreate Match Fixtures Between All Teams: ">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Button fx:id="generateFixturesButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Generate Fixtures">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="164.0" prefHeight="72.0" prefWidth="600.0">
+                                       <children>
+                                          <Label prefHeight="24.0" prefWidth="482.0" text="Warning, All Previous Records Will Be Lost!">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="220.0" prefHeight="28.0" prefWidth="600.0">
+                                       <children>
+                                          <Label prefHeight="27.0" prefWidth="454.0" text="Team Stats Will Be Generate Every 100 seconds...">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="261.0" prefHeight="54.0" prefWidth="600.0">
+                                       <children>
+                                          <Label prefHeight="27.0" prefWidth="454.0" text="Also, You Can Refresh Them Yourself With This Button:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Generate Team Stats">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </content>
+                  </Tab>
+                  <Tab text="Viewer Page">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Score Sheet">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </Pane>
+   </children>
+</Pane>

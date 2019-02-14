@@ -5,7 +5,6 @@
  */
 package newtabletennismatchsystem_;
 
-import java.util.ArrayList;
 /**
  *
  * @author c23-day
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 public class Team {
     
     String teamName;
+    String [] allTeams;
     
     public Team(String name){
         this.teamName = name;
@@ -26,6 +26,7 @@ public class Team {
         this.teamName = teamName;
         
     }
+    
     
     @Override
     public String toString(){
