@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="NewTableTennisMatchSystem_.jar" size="6690" download="eager" />
+=======
+    <jar href="NewTableTennisMatchSystem_.jar" size="6210" download="eager" />
+>>>>>>> ed48614a495f812b18538c4fdbf462d85874c71e
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="NewTableTennisMatchSystem_" >
     <param name="requiredFXVersion" value="8.0+"/>
