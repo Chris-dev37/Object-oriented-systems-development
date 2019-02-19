@@ -155,6 +155,77 @@ public class NewTableTennisMatchSystem_ extends Application{
         scoreTab.setText("Score Sheet");
         FlowPane scorePane = new FlowPane();
         
+        GridPane showScorePane = new GridPane();
+        showScorePane.setMinSize(600, 100);
+        showScorePane.setStyle("-fx-border-style: solid");
+        showScorePane.setHgap(10);
+        showScorePane.setVgap(2);
+        showScorePane.setPadding(new Insets(10,10,10,10));
+        
+        Button btnNewSheet = new Button("New Sheet");
+        Button btnModifySheet = new Button("Modify Sheet");
+        Label lblHomeTeam = new Label("Home team");
+        awayTeamSelection.setValue("Select Team");
+        Label lblAwayTeam = new Label("Home team");
+        homeTeamSelection.setValue("Select Team");
+        
+        Label lblSingleSet = new Label("Single Set");      
+        selAwayPlayer.setValue("Select Team");
+        selHomePlayer.setValue("Select Team");
+        Label lbl_S1 = new Label("0:0");   
+        Label lbl_S2 = new Label("0:0");   
+        Label lbl_S3 = new Label("0:0");   
+        Label lbl_S4 = new Label("0:0");   
+        Label lbl_S5 = new Label("0:0");   
+        Label lbl_S6 = new Label("0:0");
+        selHomePlayer.setValue("Select Team");
+        selHomePlayer.setValue("Select Team");
+        Label lbl_S7 = new Label("0:0");
+        Label lbl_S8 = new Label("0:0");
+        Label lbl_S9 = new Label("0:0");
+        Label lbl_S10 = new Label("0:0");
+        Label lbl_S11 = new Label("0:0");
+        Label lbl_S12 = new Label("0:0");
+        
+        Label lblDoubleSet = new Label("Double set");
+        Label lbl_S13 = new Label("0:0");
+        Label lbl_S14 = new Label("0:0");
+        Label lbl_S15 = new Label("0:0");
+        Label lblFinalScore = new Label("Final team scores");
+        Button btnCalculate = new Button("Calculate");
+        
+        showScorePane.add(btnNewSheet, 0, 0);
+        showScorePane.add(btnModifySheet, 1, 0);
+        showScorePane.add(lblHomeTeam, 2, 3);
+        showScorePane.add(awayTeamSelection, 3, 3);
+        showScorePane.add(lblAwayTeam, 4, 3);
+        showScorePane.add(homeTeamSelection, 5, 3);
+        
+        showScorePane.add(lblSingleSet, 2, 4);       
+        showScorePane.add(selAwayPlayer1, 3, 4);    
+        showScorePane.add(selAwayPlayer2, 4, 4);
+        showScorePane.add(lbl_S1, 3, 5);
+        showScorePane.add(lbl_S2, 4, 5);
+        showScorePane.add(lbl_S3, 3, 6);
+        showScorePane.add(lbl_S4, 4, 6);
+        showScorePane.add(lbl_S5, 3, 7);
+        showScorePane.add(lbl_S6, 4, 7);      
+        showScorePane.add(selHomePlayer1, 2, 5);       
+        showScorePane.add(selHomePlayer2, 2, 6);
+        showScorePane.add(lbl_S7, 3, 8);
+        showScorePane.add(lbl_S8, 4, 8);
+        showScorePane.add(lbl_S9, 3, 9);
+        showScorePane.add(lbl_S10, 4, 9);
+        showScorePane.add(lbl_S11, 3, 10);
+        showScorePane.add(lbl_S12, 4, 10);
+        
+        showScorePane.add(lblDoubleSet, 2, 11);
+        showScorePane.add(lbl_S13, 2, 11);
+        showScorePane.add(lbl_S14, 2, 12);
+        showScorePane.add(lbl_S15, 2, 13);
+        showScorePane.add(lblFinalScore, 4, 11);       
+        showScorePane.add(btnCalculate, 2, 14);    
+        
         adminTab.setContent(adminPage);
         viewerTab.setContent(viewerPane);
         scoreTab.setContent(scorePane);
