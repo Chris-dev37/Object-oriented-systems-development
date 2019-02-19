@@ -15,7 +15,7 @@ public class Team {
     
     public Team(String name){
         this.teamName = name;
-        System.out.println("New Team " + name + " Added.");
+        System.out.println("Thank You, Team " + name + " Added!");
     }
     
     public String getName(){

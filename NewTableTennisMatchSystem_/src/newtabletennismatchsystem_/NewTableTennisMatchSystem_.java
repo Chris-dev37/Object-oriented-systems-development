@@ -1,6 +1,7 @@
 package newtabletennismatchsystem_;
 
 import java.io.IOException;
+import java.util.HashMap;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -28,17 +29,31 @@ import javafx.stage.Stage;
 public class NewTableTennisMatchSystem_ extends Application{
     
     Stage window;
+    private ComboBox <String> teamSelection = new ComboBox();
+    private HashMap <String, String> teamPlayers = new HashMap<>();
+    TextField teamNames = new TextField();   
+    TextField playerName = new TextField();
+    Button registerPlayer = null;
     
+    public void addTeam(String name) {
+        Team team = new Team(name);
+        teamSelection.getItems().add(team.getName());
+    }
     
+    public void addPlayer(String teamName, String name) {
+        Player player = new Player(name);
+        teamPlayers.put(teamName, player.getPlayerName());
+    }
+   
     
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
         window.setTitle("Ping Pong! Ping Pong! Ping Pong!");
-        ComboBox <String> teamSelection = new ComboBox();
+        
         
         FlowPane root = new FlowPane();
-        Scene scene = new Scene(root,600, 430);
+        Scene scene = new Scene(root,600, 448);
         
         TabPane tabPane = new TabPane();
         BorderPane borderPane = new BorderPane();
@@ -55,7 +70,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         ////////////////
         GridPane addTeamPane = new GridPane();
         addTeamPane.setMinSize(600, 100);
-        addTeamPane.setStyle("-fx-border-style: solid");
+        addTeamPane.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         addTeamPane.setHgap(10);
         addTeamPane.setVgap(2);
         addTeamPane.setPadding(new Insets(10,10,10,10));
@@ -70,8 +85,8 @@ public class NewTableTennisMatchSystem_ extends Application{
         addTeamPane.add(addTeam, 1, 1);
         
         addTeam.setOnAction(e -> {
-            teamSelection.getItems().add(teamNames.getText());
-            teamNames.clear();        
+            addTeam(teamNames.getText());
+            teamNames.clear();
         });
       
         /////////////////
@@ -79,7 +94,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         /////////////////
         GridPane addPlayer = new GridPane();
         addPlayer.setMinSize(600, 100);
-        addPlayer.setStyle("-fx-border-style: solid");
+        addPlayer.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         addPlayer.setHgap(10);
         addPlayer.setVgap(2);
         addPlayer.setPadding(new Insets(10,10,10,10));
@@ -88,7 +103,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         TextField playerName = new TextField();
         playerName.setPromptText("Player Name Here");
         teamSelection.setValue("Select Team");
-        Button registerPlayer = new Button("Register Player");
+        registerPlayer = new Button("Register Player");
         
         addPlayer.add(enterPlayerName, 0, 0);
         addPlayer.add(playerName, 0, 1);
@@ -96,16 +111,18 @@ public class NewTableTennisMatchSystem_ extends Application{
         addPlayer.add(registerPlayer, 2, 2);
         
         //TODO Enter Button and ComboBox functionality
-        registerPlayer.setOnAction(e -> {
-            
+        registerPlayer.setOnAction(e ->{
+            addPlayer(teamSelection.getValue(), playerName.getText());
+            playerName.clear();  
         });
+            
         
         ////////////////
         // Third Pane //
         ////////////////
         GridPane generateFixtures = new GridPane();
         generateFixtures.setMinSize(600, 100);
-        generateFixtures.setStyle("-fx-border-style: solid");
+        generateFixtures.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         generateFixtures.setHgap(10);
         generateFixtures.setVgap(2);
         generateFixtures.setPadding(new Insets(10,10,10,10));
@@ -120,13 +137,16 @@ public class NewTableTennisMatchSystem_ extends Application{
         generateFixtures.add(gMatch, 0, 2);
         
         //TODO Enter Button functionality
+        gMatch.setOnAction(e ->{
+            
+        });
         
         /////////////////
         // Fourth Pane //
         /////////////////
         GridPane teamStats = new GridPane();
         teamStats.setMinSize(600, 100);
-        teamStats.setStyle("-fx-border-style: solid");
+        teamStats.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         teamStats.setHgap(10);
         teamStats.setVgap(2);
         teamStats.setPadding(new Insets (10,10,10,10));
@@ -136,6 +156,9 @@ public class NewTableTennisMatchSystem_ extends Application{
         Button tSManual = new Button("Generate Team Stats");
         
          //TODO Enter Button functionality
+        tSManual.setOnAction(e ->{
+            
+        });
         
         teamStats.add(tSLabel, 0, 0);
         teamStats.add(tSButtonLabel, 0, 1);
