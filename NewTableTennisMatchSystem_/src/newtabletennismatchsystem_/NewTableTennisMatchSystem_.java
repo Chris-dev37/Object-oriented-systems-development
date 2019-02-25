@@ -1,7 +1,10 @@
 package newtabletennismatchsystem_;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import static java.util.Objects.hash;
+import java.util.Timer;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -29,8 +32,18 @@ import javafx.stage.Stage;
 public class NewTableTennisMatchSystem_ extends Application{
     
     Stage window;
-    private ComboBox <String> teamSelection = new ComboBox();
-    private HashMap <String, String> teamPlayers = new HashMap<>();
+    private final ComboBox <String> teamSelection = new ComboBox(); 
+    private final ComboBox <String> scoreHomeTeam = new ComboBox(); 
+    private final ComboBox <String> scoreAwayTeam = new ComboBox(); 
+    private final ComboBox <String> homeBox = new ComboBox<>();
+    private final ComboBox <String> homeBox2 = new ComboBox<>();
+    private final ComboBox <String> awayBox = new ComboBox<>();
+    private final ComboBox <String> awayBox2 = new ComboBox<>();
+    private final HashMap <String, String> teamPlayers = new HashMap<>();
+    private final ArrayList <String> matchFixture = new ArrayList<>();
+    int uweVsPage, uweVsFilton, uweVsKcc, pageVsUwe, pageVsFilton, pageVsKcc, filtonVsUwe, filtonVsPage, filtonVsKcc, kccVsUwe, kccVsPage, kccVsFilton;
+    int uweMatchesPlayed, uweMatchesWon, uweSetsWon, pageMatchesPlayed, pageMatchesWon, pageSetsWon, filtonMatchesPlayed, filtonMatchesWon, filtonSetsWon, kccMatchesPlayed, kccMatchesWon, kccSetsWon;
+    
     TextField teamNames = new TextField();   
     TextField playerName = new TextField();
     Button registerPlayer = null;
@@ -43,8 +56,195 @@ public class NewTableTennisMatchSystem_ extends Application{
     public void addPlayer(String teamName, String name) {
         Player player = new Player(name);
         teamPlayers.put(teamName, player.getPlayerName());
+        System.out.println(name + " has been add to " + teamName);
+        };
+    
+    
+    
+//    public void generateMatches (String homeTeam, String awayTeam){
+//        boolean bool = false;
+//        for (String i : teamSelection.keySet()){
+//            for (String j : teamSelection.keySet()){
+//                if (teamSelection.get(i).equals(teamSelection.get(j)) && !bool){
+//                    bool = true;
+//                }else if (bool){
+//                    Match matches = new Match(i,j);
+//                    matchFixture.getItems().add(matches);
+//                    scoreHomeTeam.getItems().add(matches.getMatch(i));
+//                    scoreAwayTeam.getItems().add(matches.getMatch(j));
+//                }
+//            }
+//            bool = false;
+//        }
+//         
+//        
+//    }
+    
+//    public void comboboxSort (String homePlayers, String awayPlayers){
+//        if (teamPlayers.keySet().equals(homePlayers)){
+//            for (String i : teamSelection.keySet()){
+//            homeBox.getItems().add(teamSelection.get(i));
+//            homeBox2.getItems().add(teamSelection.get(i));
+//            }
+//        }
+//        else if (teamPlayers.keySet().equals(awayPlayers)){
+//            for (String i : teamSelection.keySet()){
+//            awayBox.getItems().add(teamSelection.get(i));
+//            awayBox2.getItems().add(teamSelection.get(i));
+//            }
+//        }
+//    }
+    public void finalScoresCal(String homeTeam,String awayTeam,String finalScore,String lbl_S1,String lbl_S3,String lbl_S5,String lbl_S7,String lbl_S9,String lbl_S11,String lbl_S2,String lbl_S4,String lbl_S6,String lbl_S8,String lbl_S10,String lbl_S12){
+        char charAtZero = finalScore.charAt(0);
+        char charAtTwo = finalScore.charAt(2);
+        
+        switch (homeTeam) {
+            case "uwe":
+                uweMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    uweMatchesWon =+ 1;
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                    uweSetsWon =+ 1;
+                }   break;
+            case "page":
+                pageMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    pageMatchesWon =+ 1;
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                    pageSetsWon =+ 1;
+                }   break;
+            case "filton":
+                filtonMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    filtonMatchesWon =+ 1;
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                    filtonSetsWon =+ 1;
+                }   break;
+            case "kcc":
+                kccMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    kccMatchesWon =+ 1;
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                }   break;
+            default:
+                break;
+        }
+        switch (awayTeam) {
+            case "uwe":
+                uweMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    uweMatchesWon =+ 1;
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                    kccSetsWon =+ 1;  
+                }   break;
+            case "page":
+                pageMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    pageMatchesWon =+ 1;
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                    kccSetsWon =+ 1;  
+                }   break;
+            case "filton":
+                filtonMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    filtonMatchesWon =+ 1;
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                    kccSetsWon =+ 1;  
+                }   break;
+            case "kcc":
+                kccMatchesPlayed =+ 1;
+                if (charAtZero > charAtTwo){
+                    kccMatchesWon =+ 1;
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                    kccSetsWon =+ 1;
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                    kccSetsWon =+ 1;  
+                }   break;
+            default:
+                break;
+        }
+        
     }
-   
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -53,7 +253,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         
         
         FlowPane root = new FlowPane();
-        Scene scene = new Scene(root,600, 448);
+        Scene scene = new Scene(root, 680, 448);
         
         TabPane tabPane = new TabPane();
         BorderPane borderPane = new BorderPane();
@@ -63,20 +263,19 @@ public class NewTableTennisMatchSystem_ extends Application{
         //////////////////////////
         Tab adminTab = new Tab();
         adminTab.setText("Admin Page");
-        FlowPane adminPage = new FlowPane();
+        FlowPane adminPane = new FlowPane();
         
         ////////////////
         // First Pane //
         ////////////////
         GridPane addTeamPane = new GridPane();
-        addTeamPane.setMinSize(600, 100);
+        addTeamPane.setMinSize(680, 100);
         addTeamPane.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         addTeamPane.setHgap(10);
         addTeamPane.setVgap(2);
         addTeamPane.setPadding(new Insets(10,10,10,10));
         
         Label enterTeam = new Label("Enter a new team:");
-        TextField teamNames = new TextField();
         teamNames.setPromptText("Team Name Here");
         Button addTeam = new Button("Add Team");
         
@@ -93,14 +292,13 @@ public class NewTableTennisMatchSystem_ extends Application{
         // Second Pane //
         /////////////////
         GridPane addPlayer = new GridPane();
-        addPlayer.setMinSize(600, 100);
+        addPlayer.setMinSize(680, 100);
         addPlayer.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         addPlayer.setHgap(10);
         addPlayer.setVgap(2);
         addPlayer.setPadding(new Insets(10,10,10,10));
         
         Label enterPlayerName = new Label("Please Enter Player Name:");
-        TextField playerName = new TextField();
         playerName.setPromptText("Player Name Here");
         teamSelection.setValue("Select Team");
         registerPlayer = new Button("Register Player");
@@ -110,18 +308,16 @@ public class NewTableTennisMatchSystem_ extends Application{
         addPlayer.add(teamSelection, 2, 1);
         addPlayer.add(registerPlayer, 2, 2);
         
-        //TODO Enter Button and ComboBox functionality
         registerPlayer.setOnAction(e ->{
             addPlayer(teamSelection.getValue(), playerName.getText());
             playerName.clear();  
         });
-            
         
         ////////////////
         // Third Pane //
         ////////////////
         GridPane generateFixtures = new GridPane();
-        generateFixtures.setMinSize(600, 100);
+        generateFixtures.setMinSize(680, 100);
         generateFixtures.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         generateFixtures.setHgap(10);
         generateFixtures.setVgap(2);
@@ -137,15 +333,13 @@ public class NewTableTennisMatchSystem_ extends Application{
         generateFixtures.add(gMatch, 0, 2);
         
         //TODO Enter Button functionality
-        gMatch.setOnAction(e ->{
-            
-        });
+        //gMatch.setOnAction(e -> generateMatches());
         
         /////////////////
         // Fourth Pane //
         /////////////////
         GridPane teamStats = new GridPane();
-        teamStats.setMinSize(600, 100);
+        teamStats.setMinSize(680, 100);
         teamStats.setStyle("-fx-border-style: solid;" + "-fx-border-radius: 5;");
         teamStats.setHgap(10);
         teamStats.setVgap(2);
@@ -153,12 +347,13 @@ public class NewTableTennisMatchSystem_ extends Application{
        
         Label tSLabel = new Label("Team Stats Will Be Automatically Updated Every 100 Seconds");
         Label tSButtonLabel = new Label("You Can Also Update The Stats Manually With The Button -->");
-        Button tSManual = new Button("Generate Team Stats");
         
-         //TODO Enter Button functionality
-        tSManual.setOnAction(e ->{
-            
-        });
+        Button tSManual = new Button("Generate Team Stats");
+        tSManual.setOnAction(e -> System.out.println("UWE: Matches Played: " + uweMatchesPlayed + ", Matches Won: "+ uweMatchesWon +", Sets Won: "+ uweSetsWon +
+                "\nPage: Matches Played: " + pageMatchesPlayed + ", Matches Won: "+ pageMatchesWon +", Sets Won: "+ pageSetsWon + 
+                "\nFilton: Matches Played: " + filtonMatchesPlayed + ", Matches Won: "+ filtonMatchesWon +", Sets Won: "+ filtonSetsWon +
+                "\nKCC: Matches Played: " + kccMatchesPlayed + ", Matches Won: "+ kccMatchesWon +", Sets Won: "+ kccSetsWon +"\n"
+        ));
         
         teamStats.add(tSLabel, 0, 0);
         teamStats.add(tSButtonLabel, 0, 1);
@@ -171,6 +366,47 @@ public class NewTableTennisMatchSystem_ extends Application{
         viewerTab.setText("Viewer Page");
         FlowPane viewerPane = new FlowPane();
         
+        //////////////
+        //First Pane//
+        //////////////
+        GridPane btns = new GridPane();
+        btns.setVgap(10);
+        btns.setHgap(2);
+        btns.setPadding(new Insets(10,10,10,10));
+        
+        Button viewFixRes = new Button("View Fixture and Results Chart");
+        viewFixRes.setOnAction(e -> fixturesAndResults.display());
+        
+        Button showAllTeamStats = new Button("Show All Team Stats");
+        showAllTeamStats.setOnAction(e -> System.out.println("UWE: Matches Played: " + uweMatchesPlayed + ", Matches Won: "+ uweMatchesWon +", Sets Won: "+ uweSetsWon +
+                "\nPage: Matches Played: " + pageMatchesPlayed + ", Matches Won: "+ pageMatchesWon +", Sets Won: "+ pageSetsWon + 
+                "\nFilton: Matches Played: " + filtonMatchesPlayed + ", Matches Won: "+ filtonMatchesWon +", Sets Won: "+ filtonSetsWon +
+                "\nKCC: Matches Played: " + kccMatchesPlayed + ", Matches Won: "+ kccMatchesWon +", Sets Won: "+ kccSetsWon +"\n"
+        ));
+         
+        Button teamRankings = new Button("Show All Team Rankings");
+        //teamRankings.setOnAction(e -> fixturesAndResults.display());
+        
+        Button viewMatchScores = new Button("View Match Scores");
+       // viewMatchScores.setOnAction(e -> fixturesAndResults.display());
+        
+        btns.add(viewFixRes, 0, 0);
+        btns.add(showAllTeamStats, 0, 1);
+        btns.add(teamRankings, 0, 2);
+        btns.add(viewMatchScores, 0, 3);
+        
+        ///////////////
+        //Second Pane//
+        ///////////////
+        
+        GridPane displayBtnsData = new GridPane();
+        displayBtnsData.setPadding(new Insets(10,10,10,10));
+        
+        TextField displayInfo = new TextField();
+        displayInfo.setMinSize(300, 400);
+        
+        displayBtnsData.add(displayInfo, 0, 0);
+        
         ///////////////////////////
         // Third Tab/Score Sheet //
         ///////////////////////////
@@ -178,78 +414,105 @@ public class NewTableTennisMatchSystem_ extends Application{
         scoreTab.setText("Score Sheet");
         FlowPane scorePane = new FlowPane();
         
+        //////////////
+        //First Pane//
+        //////////////
+        GridPane newModPane = new GridPane();
+        newModPane.setHgap(10);
+        newModPane.setVgap(2);
+        newModPane.setPadding(new Insets(10,10,10,10));
+        
+        Button btnNewSheet = new Button("New Sheet");
+        Button btnModifySheet = new Button("Modify Sheet");
+        Label lblHomeTeam = new Label("Home team:");
+        scoreHomeTeam.setValue("Select Team");
+        Label lblAwayTeam = new Label("Away team:");
+        scoreAwayTeam.setValue("Select Team");
+        Button finalTeams = new Button("Declare Teams");
+        
+//        finalTeams.setOnAction(e -> {
+//            comboboxSort(scoreHomeTeam.getValue(), scoreAwayTeam.getValue());
+//            });
+//        
+        ///////////////
+        //Second Pane//
+        ///////////////
         GridPane showScorePane = new GridPane();
-        showScorePane.setMinSize(600, 100);
-        showScorePane.setStyle("-fx-border-style: solid");
+        showScorePane.setMinSize(680, 100);
         showScorePane.setHgap(10);
         showScorePane.setVgap(2);
         showScorePane.setPadding(new Insets(10,10,10,10));
         
-        Button btnNewSheet = new Button("New Sheet");
-        Button btnModifySheet = new Button("Modify Sheet");
-        Label lblHomeTeam = new Label("Home team");
-        awayTeamSelection.setValue("Select Team");
-        Label lblAwayTeam = new Label("Home team");
-        homeTeamSelection.setValue("Select Team");
-        
-        Label lblSingleSet = new Label("Single Set");      
-        selAwayPlayer.setValue("Select Team");
-        selHomePlayer.setValue("Select Team");
-        Label lbl_S1 = new Label("0:0");   
-        Label lbl_S2 = new Label("0:0");   
-        Label lbl_S3 = new Label("0:0");   
-        Label lbl_S4 = new Label("0:0");   
-        Label lbl_S5 = new Label("0:0");   
-        Label lbl_S6 = new Label("0:0");
-        selHomePlayer.setValue("Select Team");
-        selHomePlayer.setValue("Select Team");
-        Label lbl_S7 = new Label("0:0");
-        Label lbl_S8 = new Label("0:0");
-        Label lbl_S9 = new Label("0:0");
-        Label lbl_S10 = new Label("0:0");
-        Label lbl_S11 = new Label("0:0");
-        Label lbl_S12 = new Label("0:0");
+        Label lblSingleSet = new Label("Single Set");
+        lblSingleSet.setStyle("-fx-font-weight: bold");
+        homeBox.setValue("Select Player"); 
+        homeBox2.setValue("Select Player"); 
+        TextField lbl_S1 = new TextField("0:0");   
+        TextField lbl_S2 = new TextField("0:0");   
+        TextField lbl_S3 = new TextField("0:0");   
+        TextField lbl_S4 = new TextField("0:0");   
+        TextField lbl_S5 = new TextField("0:0");   
+        TextField lbl_S6 = new TextField("0:0");
+        awayBox.setValue("Select Player");
+        awayBox2.setValue("Select Player");
+        TextField lbl_S7 = new TextField("0:0");
+        TextField lbl_S8 = new TextField("0:0");
+        TextField lbl_S9 = new TextField("0:0");
+        TextField lbl_S10 = new TextField("0:0");
+        TextField lbl_S11 = new TextField("0:0");
+        TextField lbl_S12 = new TextField("0:0");
         
         Label lblDoubleSet = new Label("Double set");
-        Label lbl_S13 = new Label("0:0");
-        Label lbl_S14 = new Label("0:0");
-        Label lbl_S15 = new Label("0:0");
-        Label lblFinalScore = new Label("Final team scores");
-        Button btnCalculate = new Button("Calculate");
+        lblDoubleSet.setStyle("-fx-font-weight: bold");
+        TextField lbl_S13 = new TextField("0:0");
+        TextField lbl_S14 = new TextField("0:0");
+        TextField lbl_S15 = new TextField("0:0");
+        TextField lblFinalScore = new TextField();
+        lblFinalScore.setPromptText("Enter Final. E.G 4:2");
+        Button calculateFinalScore = new Button("Calculate and Save Scores");
         
-        showScorePane.add(btnNewSheet, 0, 0);
-        showScorePane.add(btnModifySheet, 1, 0);
-        showScorePane.add(lblHomeTeam, 2, 3);
-        showScorePane.add(awayTeamSelection, 3, 3);
-        showScorePane.add(lblAwayTeam, 4, 3);
-        showScorePane.add(homeTeamSelection, 5, 3);
+        //TODO add function
+        calculateFinalScore.setOnAction(e -> {
+            finalScoresCal(scoreHomeTeam.getValue(), scoreAwayTeam.getValue(), lblFinalScore.getText(),lbl_S1.getText(), lbl_S3.getText(), lbl_S5.getText(), lbl_S7.getText(), lbl_S9.getText(), lbl_S11.getText(), lbl_S2.getText(), lbl_S4.getText(), lbl_S6.getText(), lbl_S8.getText(), lbl_S10.getText(), lbl_S12.getText());
+                });
         
-        showScorePane.add(lblSingleSet, 2, 4);       
-        showScorePane.add(selAwayPlayer1, 3, 4);    
-        showScorePane.add(selAwayPlayer2, 4, 4);
-        showScorePane.add(lbl_S1, 3, 5);
-        showScorePane.add(lbl_S2, 4, 5);
-        showScorePane.add(lbl_S3, 3, 6);
-        showScorePane.add(lbl_S4, 4, 6);
-        showScorePane.add(lbl_S5, 3, 7);
-        showScorePane.add(lbl_S6, 4, 7);      
-        showScorePane.add(selHomePlayer1, 2, 5);       
-        showScorePane.add(selHomePlayer2, 2, 6);
-        showScorePane.add(lbl_S7, 3, 8);
-        showScorePane.add(lbl_S8, 4, 8);
-        showScorePane.add(lbl_S9, 3, 9);
-        showScorePane.add(lbl_S10, 4, 9);
-        showScorePane.add(lbl_S11, 3, 10);
-        showScorePane.add(lbl_S12, 4, 10);
         
-        showScorePane.add(lblDoubleSet, 2, 11);
-        showScorePane.add(lbl_S13, 2, 11);
-        showScorePane.add(lbl_S14, 2, 12);
-        showScorePane.add(lbl_S15, 2, 13);
-        showScorePane.add(lblFinalScore, 4, 11);       
-        showScorePane.add(btnCalculate, 2, 14);    
+        newModPane.add(btnNewSheet, 0, 0);
+        newModPane.add(btnModifySheet, 1, 0);
         
-        adminTab.setContent(adminPage);
+        newModPane.add(lblHomeTeam, 3, 0);
+        newModPane.add(scoreHomeTeam, 4, 0);
+        newModPane.add(lblAwayTeam, 5, 0);
+        newModPane.add(scoreAwayTeam, 6, 0);
+        newModPane.add(finalTeams, 7, 0);
+        
+        showScorePane.add(lblSingleSet, 0, 7);       
+        showScorePane.add(awayBox, 0, 8);    
+        showScorePane.add(homeBox, 1, 7);
+        showScorePane.add(lbl_S1, 1, 8);
+        showScorePane.add(lbl_S2, 2, 8);
+        showScorePane.add(lbl_S3, 1, 9);
+        showScorePane.add(lbl_S4, 2, 9);
+        showScorePane.add(lbl_S5, 1, 10);
+        showScorePane.add(lbl_S6, 2, 10);      
+        showScorePane.add(awayBox2, 0, 11);       
+        showScorePane.add(homeBox2, 2, 7);
+        showScorePane.add(lbl_S7, 1, 11);
+        showScorePane.add(lbl_S8, 2, 11);
+        showScorePane.add(lbl_S9, 1, 12);
+        showScorePane.add(lbl_S10, 2, 12);
+        showScorePane.add(lbl_S11, 1, 13);
+        showScorePane.add(lbl_S12, 2, 13);
+        
+        showScorePane.add(lblDoubleSet, 0, 15);
+        showScorePane.add(lbl_S13, 1, 14);
+        showScorePane.add(lbl_S14, 1, 15);
+        showScorePane.add(lbl_S15, 1, 16);
+        showScorePane.add(lblFinalScore, 2, 15);
+        showScorePane.add(calculateFinalScore, 3, 17);
+        
+        
+        adminTab.setContent(adminPane);
         viewerTab.setContent(viewerPane);
         scoreTab.setContent(scorePane);
         
@@ -257,12 +520,17 @@ public class NewTableTennisMatchSystem_ extends Application{
         tabPane.getTabs().add(viewerTab);
         tabPane.getTabs().add(scoreTab);
         
-        adminPage.getChildren().addAll(addTeamPane, addPlayer, generateFixtures, teamStats);
+        adminPane.getChildren().addAll(addTeamPane, addPlayer, generateFixtures, teamStats);
+        viewerPane.getChildren().addAll(btns, displayBtnsData);
+        scorePane.getChildren().addAll(newModPane,showScorePane);
         
         borderPane.setCenter(tabPane);
         root.getChildren().add(borderPane);
         window.setScene(scene);
         window.show();
+        
+        Timer timer = new Timer();
+        timer.schedule(new printStats(), 0, 5000); 
     }
     
     public static void main(String[] args) {

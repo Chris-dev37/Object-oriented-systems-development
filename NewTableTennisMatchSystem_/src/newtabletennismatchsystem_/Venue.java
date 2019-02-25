@@ -11,4 +11,21 @@ package newtabletennismatchsystem_;
  */
 public class Venue {
     
+    String venueName;
+    
+    public Venue(String name){
+        this.venueName = name;
+        
+    }
+    
+    public String getName(){
+        return venueName;
+    }
+    
+    public void setName(String venueName){
+        this.venueName = venueName;
+    }
+    
+    
 }
+

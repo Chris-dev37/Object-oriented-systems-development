@@ -16,7 +16,6 @@ public class Player {
     
     public Player(String name){
         this.playerName = name;
-        System.out.println(name);
     }
     
     public String getPlayerName(){

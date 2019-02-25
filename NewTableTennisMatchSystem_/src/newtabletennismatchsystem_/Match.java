@@ -13,14 +13,11 @@ public class Match {
     
     String homeTeam;
     String awayTeam;
-    int singleSets;
-    int doubles;
     
-    public Match(String home, String away, int singles, int doubles){
+    
+    public Match(String home, String away){
         this.homeTeam = home;
         this.awayTeam = away;
-        this.singleSets = singles;
-        this.doubles = doubles;
     }
     
     public String getHomeTeam(){
@@ -38,7 +35,7 @@ public class Match {
     public void setAwayTeam(String awayTeam){
         this.awayTeam = awayTeam;
     }
-    
+    /*
     public int getSingleSets(){
         return singleSets;
     }
@@ -53,5 +50,5 @@ public class Match {
     
     public void setDoubles(int doubles){
         this.doubles = doubles;
-    }
+    }*/
 }
