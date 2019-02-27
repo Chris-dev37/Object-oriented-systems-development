@@ -1,16 +1,15 @@
 package newtabletennismatchsystem_;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import static java.util.Objects.hash;
+import java.util.List;
 import java.util.Timer;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,9 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 /**
  *
@@ -40,131 +36,140 @@ public class NewTableTennisMatchSystem_ extends Application{
     private final ComboBox <String> awayBox = new ComboBox<>();
     private final ComboBox <String> awayBox2 = new ComboBox<>();
     private final HashMap <String, String> teamPlayers = new HashMap<>();
-    private final ArrayList <String> matchFixture = new ArrayList<>();
+    Integer [] sortTeamRankings;
+    List<String> homeTeamPlayers = new ArrayList();
+    List<String> awayTeamPlayers = new ArrayList();
     int uweVsPage, uweVsFilton, uweVsKcc, pageVsUwe, pageVsFilton, pageVsKcc, filtonVsUwe, filtonVsPage, filtonVsKcc, kccVsUwe, kccVsPage, kccVsFilton;
     int uweMatchesPlayed, uweMatchesWon, uweSetsWon, pageMatchesPlayed, pageMatchesWon, pageSetsWon, filtonMatchesPlayed, filtonMatchesWon, filtonSetsWon, kccMatchesPlayed, kccMatchesWon, kccSetsWon;
+    int arrayLength;
     
     TextField teamNames = new TextField();   
     TextField playerName = new TextField();
     Button registerPlayer = null;
+
+    public NewTableTennisMatchSystem_() {
+        this.sortTeamRankings = new Integer[]{uweSetsWon, pageSetsWon, filtonSetsWon, kccSetsWon};
+        
+    }
     
-    public void addTeam(String name) {
-        Team team = new Team(name);
-        teamSelection.getItems().add(team.getName());
+    public void addTeam(String name) {                  //////
+        Team team = new Team(name);                     // creates an object of the 'Team' class and adds the name parameter to the teamSelection comboBox.
+        teamSelection.getItems().add(team.getName());   //////
     }
     
     public void addPlayer(String teamName, String name) {
-        Player player = new Player(name);
-        teamPlayers.put(teamName, player.getPlayerName());
-        System.out.println(name + " has been add to " + teamName);
+        Player player = new Player(name);                               //////
+        teamPlayers.put(teamName, player.getPlayerName());              // creates an object of the 'Player' class then adds the name parameter and the teamName parameter to the HashMap teamPlayers.
+        System.out.println(name + " has been added to " + teamName);    //////
         };
     
+    public void generateMatches (String homeTeam, String awayTeam){
+        boolean bool = false;
     
+        for (String i : teamPlayers.keySet()){                                  
+            for (String j : teamPlayers.keySet()){                              
+                if (teamPlayers.get(i).equals(teamPlayers.get(j)) && !bool){    //////    
+                    bool = true;                                                //////    
+                }else if (bool){                                                // comparing key(i) and key(j) from the teamPlayers HashMap. if they dont match then they are placed in object of the 'Matches' class.
+                    Match matches = new Match(i,j);                             // then (i) and (j) is added into seperate comboBoxes placed on the score sheet.
+                    scoreHomeTeam.getItems().add(matches.getHomeTeam());        //////
+                    scoreAwayTeam.getItems().add(matches.getAwayTeam());        //////
+                    
+                    for (String x : teamPlayers.keySet()){
+                        for (String z : teamPlayers.values()){                  //////
+                            if(x.equals(i)){                                    //////        
+                                homeBox.getItems().add(z);                      //////
+                                homeBox2.getItems().add(z);                     // here, x is used to find the key that matches i and z is used to get the value connected with the key. 
+                            }                                                   // z is then added to the comboBoxes placed on the score sheet.
+                        }                                                       //////
+                    }                                                           //////
+                    for (String x : teamPlayers.keySet()){                      //////        
+                        for (String z : teamPlayers.values()){
+                            if(x.equals(j)){
+                                awayBox.getItems().add(z);
+                                awayBox2.getItems().add(z);
+                            }
+                        }       
+                    }   
+                    System.out.println("\nMatch created between "+ i + " & "+ j);
+                    bool = false;
+                }
+            }
+        }
+    }
     
-//    public void generateMatches (String homeTeam, String awayTeam){
-//        boolean bool = false;
-//        for (String i : teamSelection.keySet()){
-//            for (String j : teamSelection.keySet()){
-//                if (teamSelection.get(i).equals(teamSelection.get(j)) && !bool){
-//                    bool = true;
-//                }else if (bool){
-//                    Match matches = new Match(i,j);
-//                    matchFixture.getItems().add(matches);
-//                    scoreHomeTeam.getItems().add(matches.getMatch(i));
-//                    scoreAwayTeam.getItems().add(matches.getMatch(j));
-//                }
-//            }
-//            bool = false;
-//        }
-//         
-//        
-//    }
-    
-//    public void comboboxSort (String homePlayers, String awayPlayers){
-//        if (teamPlayers.keySet().equals(homePlayers)){
-//            for (String i : teamSelection.keySet()){
-//            homeBox.getItems().add(teamSelection.get(i));
-//            homeBox2.getItems().add(teamSelection.get(i));
-//            }
-//        }
-//        else if (teamPlayers.keySet().equals(awayPlayers)){
-//            for (String i : teamSelection.keySet()){
-//            awayBox.getItems().add(teamSelection.get(i));
-//            awayBox2.getItems().add(teamSelection.get(i));
-//            }
-//        }
-//    }
     public void finalScoresCal(String homeTeam,String awayTeam,String finalScore,String lbl_S1,String lbl_S3,String lbl_S5,String lbl_S7,String lbl_S9,String lbl_S11,String lbl_S2,String lbl_S4,String lbl_S6,String lbl_S8,String lbl_S10,String lbl_S12){
-        char charAtZero = finalScore.charAt(0);
-        char charAtTwo = finalScore.charAt(2);
-        
-        switch (homeTeam) {
-            case "uwe":
-                uweMatchesPlayed =+ 1;
-                if (charAtZero > charAtTwo){
-                    uweMatchesWon =+ 1;
-                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+        char charAtZero = finalScore.charAt(0);                                 //////
+        char charAtTwo = finalScore.charAt(2);                                  //////
+        String eleven = "1";                                                    // this function is activated after the user has pressed the 'calculateFinalScore' button.
+                                                                                // it will then check the textfields where the scores are added and increment setsWon if their side had reached 11 and matchesWon if they have the greater final score.     
+        switch (homeTeam) {                                                     //////                                                  
+            case "uwe":                                                         //////                                                
+                uweMatchesPlayed =+ 1;                                                                                          
+                if (charAtZero > charAtTwo){                                                                                    
+                    uweMatchesWon =+ 1;                                                                                         
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == eleven.charAt(0) && lbl_S1.charAt(1) == eleven.charAt(0)){       
+                    uweSetsWon =+ 1;                                                                                            
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == eleven.charAt(0) && lbl_S3.charAt(1) == eleven.charAt(0)){     
                     uweSetsWon =+ 1;
-                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == eleven.charAt(0) && lbl_S5.charAt(1) == eleven.charAt(0)){
                     uweSetsWon =+ 1;
-                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == eleven.charAt(0) && lbl_S7.charAt(1) == eleven.charAt(0)){
                     uweSetsWon =+ 1;
-                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == eleven.charAt(0) && lbl_S9.charAt(1) == eleven.charAt(0)){
                     uweSetsWon =+ 1;
-                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
-                    uweSetsWon =+ 1;
-                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == eleven.charAt(0) && lbl_S11.charAt(1) == eleven.charAt(0)){
                     uweSetsWon =+ 1;
                 }   break;
             case "page":
                 pageMatchesPlayed =+ 1;
                 if (charAtZero > charAtTwo){
                     pageMatchesWon =+ 1;
-                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == eleven.charAt(0) && lbl_S1.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
-                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == eleven.charAt(0) && lbl_S3.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
-                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == eleven.charAt(0) && lbl_S5.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
-                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == eleven.charAt(0) && lbl_S7.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
-                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == eleven.charAt(0) && lbl_S9.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
-                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == eleven.charAt(0) && lbl_S11.charAt(1) == eleven.charAt(0)){
                     pageSetsWon =+ 1;
                 }   break;
             case "filton":
                 filtonMatchesPlayed =+ 1;
                 if (charAtZero > charAtTwo){
                     filtonMatchesWon =+ 1;
-                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == eleven.charAt(0) && lbl_S1.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
-                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == eleven.charAt(0) && lbl_S3.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
-                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == eleven.charAt(0) && lbl_S5.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
-                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == eleven.charAt(0) && lbl_S7.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
-                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == eleven.charAt(0) && lbl_S9.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
-                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == eleven.charAt(0) && lbl_S11.charAt(1) == eleven.charAt(0)){
                     filtonSetsWon =+ 1;
                 }   break;
             case "kcc":
                 kccMatchesPlayed =+ 1;
                 if (charAtZero > charAtTwo){
                     kccMatchesWon =+ 1;
-                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == 1 && lbl_S1.charAt(1) == 1){
+                } if (lbl_S1.length() >= 3 && lbl_S1.charAt(0) == eleven.charAt(0) && lbl_S1.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == 1 && lbl_S3.charAt(1) == 1){
+                } if (lbl_S3.length() >= 3 && lbl_S3.charAt(0) == eleven.charAt(0) && lbl_S3.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == 1 && lbl_S5.charAt(1) == 1){
+                } if (lbl_S5.length() >= 3 && lbl_S5.charAt(0) == eleven.charAt(0) && lbl_S5.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == 1 && lbl_S7.charAt(1) == 1){
+                } if (lbl_S7.length() >= 3 && lbl_S7.charAt(0) == eleven.charAt(0) && lbl_S7.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == 1 && lbl_S9.charAt(1) == 1){
+                } if (lbl_S9.length() >= 3 && lbl_S9.charAt(0) == eleven.charAt(0) && lbl_S9.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == 1 && lbl_S11.charAt(1) == 1){
+                } if (lbl_S11.length() >= 3 && lbl_S11.charAt(0) == eleven.charAt(0) && lbl_S11.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
                 }   break;
             default:
@@ -173,78 +178,103 @@ public class NewTableTennisMatchSystem_ extends Application{
         switch (awayTeam) {
             case "uwe":
                 uweMatchesPlayed =+ 1;
-                if (charAtZero > charAtTwo){
+                if (charAtZero < charAtTwo){
                     uweMatchesWon =+ 1;
-                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == eleven.charAt(0) && lbl_S2.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == eleven.charAt(0) && lbl_S4.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == eleven.charAt(0) && lbl_S6.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == eleven.charAt(0) && lbl_S8.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == eleven.charAt(0) && lbl_S10.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == eleven.charAt(0) && lbl_S12.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;  
                 }   break;
             case "page":
                 pageMatchesPlayed =+ 1;
-                if (charAtZero > charAtTwo){
+                if (charAtZero < charAtTwo){
                     pageMatchesWon =+ 1;
-                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == eleven.charAt(0) && lbl_S2.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == eleven.charAt(0) && lbl_S4.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == eleven.charAt(0) && lbl_S6.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == eleven.charAt(0) && lbl_S8.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == eleven.charAt(0) && lbl_S10.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == eleven.charAt(0) && lbl_S12.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;  
                 }   break;
             case "filton":
                 filtonMatchesPlayed =+ 1;
-                if (charAtZero > charAtTwo){
+                if (charAtZero < charAtTwo){
                     filtonMatchesWon =+ 1;
-                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == eleven.charAt(0) && lbl_S2.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == eleven.charAt(0) && lbl_S4.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == eleven.charAt(0) && lbl_S6.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == eleven.charAt(0) && lbl_S8.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == eleven.charAt(0) && lbl_S10.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == eleven.charAt(0) && lbl_S12.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;  
                 }   break;
             case "kcc":
                 kccMatchesPlayed =+ 1;
-                if (charAtZero > charAtTwo){
+                if (charAtZero < charAtTwo){
                     kccMatchesWon =+ 1;
-                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == 1 && lbl_S2.charAt(1) == 1){
+                } if (lbl_S2.length() >= 3 && lbl_S2.charAt(0) == eleven.charAt(0) && lbl_S2.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == 1 && lbl_S4.charAt(1) == 1){
+                } if (lbl_S4.length() >= 3 && lbl_S4.charAt(0) == eleven.charAt(0) && lbl_S4.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == 1 && lbl_S6.charAt(1) == 1){
+                } if (lbl_S6.length() >= 3 && lbl_S6.charAt(0) == eleven.charAt(0) && lbl_S6.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == 1 && lbl_S8.charAt(1) == 1){
+                } if (lbl_S8.length() >= 3 && lbl_S8.charAt(0) == eleven.charAt(0) && lbl_S8.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == 1 && lbl_S10.charAt(1) == 1){
+                } if (lbl_S10.length() >= 3 && lbl_S10.charAt(0) == eleven.charAt(0) && lbl_S10.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;
-                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == 1 && lbl_S12.charAt(1) == 1){
+                } if (lbl_S12.length() >= 3 && lbl_S12.charAt(0) == eleven.charAt(0) && lbl_S12.charAt(1) == eleven.charAt(0)){
                     kccSetsWon =+ 1;  
                 }   break;
             default:
                 break;
         }
-        
+         
     }
-    
+    public void showTeamRankings(){
+            Arrays.sort(sortTeamRankings, Collections.reverseOrder());
+            arrayLength = sortTeamRankings.length;                              //////
+            int i = 0;                                                          //////
+            int j = 0;                                                          // here, teams 'setsWon' is used to orginise the team rankings with the most sets won being first and least being last.   
+                                                                                //////
+            while (i<arrayLength){                                              //////    
+                if(sortTeamRankings[j] == uweSetsWon ){
+                    System.out.println("UWE: Matches Played: " + uweMatchesPlayed + ", Matches Won: "+ uweMatchesWon +", Sets Won: "+sortTeamRankings[i]+"\n");
+                    j++;
+                    }
+                    else if(sortTeamRankings[j] == pageSetsWon ){
+                        System.out.println("Page: Matches Played: " + pageMatchesPlayed + ", Matches Won: "+ pageMatchesWon +", Sets Won: "+sortTeamRankings[i]+"\n");
+                        j++;
+                    }
+                    else if(sortTeamRankings[j] == filtonSetsWon ){
+                        System.out.println("Filton: Matches Played: " + filtonMatchesPlayed + ", Matches Won: "+ filtonMatchesWon +", Sets Won: "+sortTeamRankings[i]+"\n");
+                        j++;
+                    }
+                    else if(sortTeamRankings[j] == kccSetsWon ){
+                        System.out.println("KCC: Matches Played: " + kccMatchesPlayed + ", Matches Won: "+ kccMatchesWon +", Sets Won: "+sortTeamRankings[i]+"\n");
+                        j++;
+                    }
+                i++;
+            }
+        }
     
     @Override
     public void start(Stage primaryStage) {
@@ -332,8 +362,8 @@ public class NewTableTennisMatchSystem_ extends Application{
         generateFixtures.add(gFWarning, 0, 1);
         generateFixtures.add(gMatch, 0, 2);
         
-        //TODO Enter Button functionality
-        //gMatch.setOnAction(e -> generateMatches());
+        
+        gMatch.setOnAction(e -> generateMatches("a","b"));
         
         /////////////////
         // Fourth Pane //
@@ -354,6 +384,13 @@ public class NewTableTennisMatchSystem_ extends Application{
                 "\nFilton: Matches Played: " + filtonMatchesPlayed + ", Matches Won: "+ filtonMatchesWon +", Sets Won: "+ filtonSetsWon +
                 "\nKCC: Matches Played: " + kccMatchesPlayed + ", Matches Won: "+ kccMatchesWon +", Sets Won: "+ kccSetsWon +"\n"
         ));
+        
+        //////////////////////////////////////
+        //Print Team Stats Every 100 Seconds//
+        //////////////////////////////////////
+        Timer time = new Timer();
+        time.schedule(new printStats(), 0, 100000);
+        System.out.println(time);
         
         teamStats.add(tSLabel, 0, 0);
         teamStats.add(tSButtonLabel, 0, 1);
@@ -385,15 +422,12 @@ public class NewTableTennisMatchSystem_ extends Application{
         ));
          
         Button teamRankings = new Button("Show All Team Rankings");
-        //teamRankings.setOnAction(e -> fixturesAndResults.display());
+        teamRankings.setOnAction(e -> showTeamRankings());
         
-        Button viewMatchScores = new Button("View Match Scores");
-       // viewMatchScores.setOnAction(e -> fixturesAndResults.display());
         
         btns.add(viewFixRes, 0, 0);
         btns.add(showAllTeamStats, 0, 1);
         btns.add(teamRankings, 0, 2);
-        btns.add(viewMatchScores, 0, 3);
         
         ///////////////
         //Second Pane//
@@ -428,12 +462,7 @@ public class NewTableTennisMatchSystem_ extends Application{
         scoreHomeTeam.setValue("Select Team");
         Label lblAwayTeam = new Label("Away team:");
         scoreAwayTeam.setValue("Select Team");
-        Button finalTeams = new Button("Declare Teams");
-        
-//        finalTeams.setOnAction(e -> {
-//            comboboxSort(scoreHomeTeam.getValue(), scoreAwayTeam.getValue());
-//            });
-//        
+            
         ///////////////
         //Second Pane//
         ///////////////
@@ -471,7 +500,6 @@ public class NewTableTennisMatchSystem_ extends Application{
         lblFinalScore.setPromptText("Enter Final. E.G 4:2");
         Button calculateFinalScore = new Button("Calculate and Save Scores");
         
-        //TODO add function
         calculateFinalScore.setOnAction(e -> {
             finalScoresCal(scoreHomeTeam.getValue(), scoreAwayTeam.getValue(), lblFinalScore.getText(),lbl_S1.getText(), lbl_S3.getText(), lbl_S5.getText(), lbl_S7.getText(), lbl_S9.getText(), lbl_S11.getText(), lbl_S2.getText(), lbl_S4.getText(), lbl_S6.getText(), lbl_S8.getText(), lbl_S10.getText(), lbl_S12.getText());
                 });
@@ -484,7 +512,6 @@ public class NewTableTennisMatchSystem_ extends Application{
         newModPane.add(scoreHomeTeam, 4, 0);
         newModPane.add(lblAwayTeam, 5, 0);
         newModPane.add(scoreAwayTeam, 6, 0);
-        newModPane.add(finalTeams, 7, 0);
         
         showScorePane.add(lblSingleSet, 0, 7);       
         showScorePane.add(awayBox, 0, 8);    
@@ -529,8 +556,6 @@ public class NewTableTennisMatchSystem_ extends Application{
         window.setScene(scene);
         window.show();
         
-        Timer timer = new Timer();
-        timer.schedule(new printStats(), 0, 5000); 
     }
     
     public static void main(String[] args) {

@@ -35,20 +35,5 @@ public class Match {
     public void setAwayTeam(String awayTeam){
         this.awayTeam = awayTeam;
     }
-    /*
-    public int getSingleSets(){
-        return singleSets;
-    }
     
-    public void setSingleSets(int singleSets){
-        this.singleSets = singleSets;
-    }
-    
-    public int getDoubles(){
-        return doubles;
-    }
-    
-    public void setDoubles(int doubles){
-        this.doubles = doubles;
-    }*/
 }

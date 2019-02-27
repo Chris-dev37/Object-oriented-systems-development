@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,8 +20,13 @@ import javafx.stage.Stage;
  */
 public class fixturesAndResults {
     
+    //////
+    // this class creates a new window when the button 'viewFixRes' and displays the match scores.
+    //////
+    
     static Stage window = new Stage();
     static String uweVsPage, uweVsFilton, uweVsKcc, pageVsUwe, pageVsFilton, pageVsKcc, filtonVsUwe, filtonVsPage, filtonVsKcc, kccVsUwe, kccVsPage, kccVsFilton;
+    
     
     public static void display(){
         window.setTitle("Fixtures & Results");
@@ -31,6 +35,43 @@ public class fixturesAndResults {
         
         FlowPane layout = new FlowPane();
         Scene scene = new Scene(layout);
+        
+        if (pageVsUwe == null){
+            pageVsUwe = "np";
+        }
+        if (filtonVsUwe == null){
+            filtonVsUwe = "np";
+        }
+        if (kccVsUwe == null){
+            kccVsUwe = "np";
+        }
+        if (uweVsPage == null){
+            uweVsPage = "np";
+        }
+        if (filtonVsPage == null){
+            filtonVsPage = "np";
+        }
+        if (kccVsPage == null){
+            kccVsPage = "np";
+        }
+        if (uweVsFilton == null){
+            uweVsFilton = "np";
+        }
+        if (pageVsFilton == null){
+            pageVsFilton = "np";
+        }
+        if (kccVsFilton == null){
+            kccVsFilton = "np";
+        }
+        if (uweVsKcc == null){
+            uweVsKcc = "np";
+        }
+        if (pageVsKcc == null){
+            pageVsKcc = "np";
+        }
+        if (filtonVsKcc == null){
+            filtonVsKcc = "np";
+        }
         
         VBox vbox1 = new VBox();
         vbox1.setPadding(new Insets(10,10,10,10));
@@ -84,10 +125,12 @@ public class fixturesAndResults {
         Label pVk = new Label(pageVsKcc);
         Label fVk = new Label(filtonVsKcc);
         Label blank4 = new Label("---");
+        Label np = new Label("np = 'Not Played'");
         Button closeWindow = new Button("OK");
         closeWindow.setOnAction(e -> window.close());
         
-        vbox5.getChildren().addAll(kccTop, uVk, pVk, fVk, blank4, closeWindow);
+        
+        vbox5.getChildren().addAll(kccTop, uVk, pVk, fVk, blank4, closeWindow, np);
      
         layout.getChildren().addAll(vbox1, vbox2, vbox3, vbox4, vbox5);
         layout.setAlignment(Pos.CENTER);
